@@ -25,6 +25,10 @@ print(configFile)
 if configFile is None or configFile == "":
 	configFile = opts.config
 
+if configFile is None or configFile == "":
+	print("Please specify the config json file with either '-config conf.json' or set the environment variable 'PAYLOAD_FILE=conf.json'")
+	exit(1)
+
 with open(configFile) as data_file:
 	options = json.load(data_file)
 
@@ -38,17 +42,31 @@ projectid = None
 if 'projectid' in options:
 	projectid = options["projectid"]
 
+mqServer = None
+
+if 'mqServer' in options:
+	mqServer = options["mqServer"]
+else:
+	print("Please specify \"mqServer\":\"mq-aws-us-east-1-1.iron.io\" or proper server name in Configuration file")
+
 sendEmail = None
 if 'sendEmail' in options:
         sendEmail = options["sendEmail"]
+else:
+	print("Please specify \"sendEmail\":\"EMAIL\"  in Configuration file")
 
 emailPassword = None
 if 'emailPassword' in options:
         emailPassword = options["emailPassword"]
+else:
+	print("Please specify \"emailPassword\":\"PASSWORD\"  in Configuration file")
 
 queueName = None
 if 'queueName' in options:
-	        queueName = options["queueName"]
+        queueName = options["queueName"]
+else:
+	print("Please specify \"queueName\":\"QUEUENAME\"  in Configuration file")
+
 
 def send_mail(send_from, send_to, subject, text, files=None, 
                           data_attachments=None, server="smtp.office365.com", port=587, 
@@ -116,15 +134,14 @@ def send_mail(send_from, send_to, subject, text, files=None,
 
 
 
-
-url = "https://mq-aws-us-east-1-1.iron.io/3/projects/%s/queues/%s/reservations" % (projectid, queueName)
+otoken = "OAuth %s" % oauthToken
+url = "https://%s/3/projects/%s/queues/%s/reservations" % (mqServer, projectid, queueName)
 
 payload = "{\n  \"n\": 1,\n  \"timeout\": 60,\n  \"wait\": 0,\n  \"delete\": false\n}"
 headers = {
-    'authorization': "OAuth p0OCfxCErXYfFQZwDlZS",
+    'authorization': otoken,
     'content-type': "application/json",
-    'cache-control': "no-cache",
-    'postman-token': "6f5108fd-2956-496d-6635-7cf9e51c3c69"
+    'cache-control': "no-cache"
     }
 
 response = requests.request("POST", url, data=payload, headers=headers)
@@ -143,19 +160,18 @@ messageID = data["messages"][0]["id"]
 
 
 bData = json.loads(messageBody)
-#pprint(bData)
 userId = bData["userId"]
 landType = bData["type"]
 
 if landType == "page":
     title = bData["properties"]["title"]
     search = bData["properties"]["search"]
-    print search
+    print(search)
     if  ((search is None)) or (len(search) == 0):
-        print "Not search object: %s" % search
+        print("Not search object: %s" % search)
     else:
         m = re.search(r"=(.+)&.+=(.+)&.+=(.+)", search)
-        print m
+        print(m)
         userid = m.group(1)
         name = m.group(2)
         name = re.sub("\+", " ", name, 1)
@@ -175,14 +191,13 @@ if landType == "page":
 
                                      
 
-    delUrl = "https://mq-aws-us-east-1-1.iron.io/3/projects/%s/queues/%s/messages/%s" % (projectid, queueName, messageID)
+    delUrl = "https://%s/3/projects/%s/queues/%s/messages/%s" % (mqServer, projectid, queueName, messageID)
 
     payload = "{\n  \"reservation_id\": \"%s\"\n}" % reservationID
     delHeaders = {
-	'authorization': "OAuth p0OCfxCErXYfFQZwDlZS",
+	'authorization': otoken,
 	'content-type': "application/json",
-	'cache-control': "no-cache",
-	'postman-token': "7489a38f-8181-186d-7077-e3daa29cc5b7"
+	'cache-control': "no-cache"
     }
 
     delResponse = requests.request("DELETE", delUrl, data=payload, headers=delHeaders)
@@ -194,14 +209,13 @@ else:
     print("Type: %s\n" % landType)
     print("Not the right type, ignoring\n")
 
-    delUrl = "https://mq-aws-us-east-1-1.iron.io/3/projects/%s/queues/%s/messages/%s" % (projectid, queueName, messageID)
+    delUrl = "https://%s/3/projects/%s/queues/%s/messages/%s" % (mqServer, projectid, queueName, messageID)
 
     payload = "{\n  \"reservation_id\": \"%s\"\n}" % reservationID
     delHeaders = {
-	'authorization': "OAuth p0OCfxCErXYfFQZwDlZS",
+	'authorization': otoken,
 	'content-type': "application/json",
-	'cache-control': "no-cache",
-	'postman-token': "7489a38f-8181-186d-7077-e3daa29cc5b7"
+	'cache-control': "no-cache"
     }
 
     delResponse = requests.request("DELETE", delUrl, data=payload, headers=delHeaders)
