@@ -1,0 +1,8 @@
+{
+	"token": "IRONTOKEN",
+	"projectid": "IRONPROJECTID",
+	"sendEmail":"USER@DOMAIN.COM",
+	"emailPassword":"EMAILPASSWORD",
+	"queueName": "segment",
+	"mqServer": "mq-aws-us-east-1-1.iron.io"
+}
