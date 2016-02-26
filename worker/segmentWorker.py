@@ -147,8 +147,9 @@ headers = {
 response = requests.request("POST", url, data=payload, headers=headers)
 
 test = response.text
-
-data = json.loads(test)
+if test is None or test == "":
+    print("No messages in queue, exiting")
+    exit(0)
 
 reservationID = data["messages"][0]["reservation_id"]
 
