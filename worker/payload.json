@@ -1,0 +1,37 @@
+{
+  "anonymousId": "9a4c76e7-4837-4cd9-8a2b-67d7f98f29e2",
+  "channel": "client",
+  "context": {
+    "ip": "73.202.8.252",
+    "library": {
+      "name": "analytics.js",
+      "version": "2.11.1"
+    },
+    "page": {
+      "path": "/test.html",
+      "referrer": "",
+      "search": "",
+      "title": "Segment.io Demo",
+      "url": "https://cloud.dactbc.com/test.html"
+    },
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"
+  },
+  "integrations": {
+  },
+  "messageId": "ajs-cb1601fd44d85245f57ab838df663fd8",
+  "originalTimestamp": "2016-04-14T07:39:01.685Z",
+  "projectId": "wPHFncQzpW",
+  "properties": {
+    "path": "/test.html",
+    "referrer": "",
+    "search": "",
+    "title": "Segment.io Demo",
+    "url": "https://cloud.dactbc.com/test.html"
+  },
+  "receivedAt": "2016-04-14T07:39:01.335Z",
+  "sentAt": "2016-04-14T07:39:01.687Z",
+  "timestamp": "2016-04-14T07:39:01.333Z",
+  "type": "page",
+  "userId": "234t4hw4v3ewv4y5",
+  "version": 2
+}
