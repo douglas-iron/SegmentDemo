@@ -1,0 +1,35 @@
+{
+  "anonymousId": "db0b11ea-7314-486e-b765-2b264ed77c36",
+  "context": {
+    "library": {
+      "name": "analytics-wordpress",
+      "version": "unknown"
+    },
+    "page": {
+      "path": "/checkout/",
+      "referrer": "https://oscom.dactbc.com/",
+      "search": "",
+      "title": "Checkout – Iron.io Demo Store",
+      "url": "https://oscom.dactbc.com/checkout/"
+    },
+    "traits": {
+      "username": "doug",
+      "email": "doug@iron.io",
+      "firstName": "Douglas",
+      "lastName": "Coburn"
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+  },
+  "event": "Viewed Checkout Page",
+  "integrations": {},
+  "messageId": "ajs-30e4a5bf6eb945decfcdf08b08cc87c4",
+  "properties": {
+    "noninteraction": true
+  },
+  "receivedAt": "2016-06-07T17:51:46.687Z",
+  "sentAt": "2016-06-07T17:51:46.706Z",
+  "timestamp": "2016-06-07T17:51:46.686Z",
+  "type": "track",
+  "userId": "doug@iron.io",
+  "originalTimestamp": "2016-06-07T17:51:46.705Z"
+}
